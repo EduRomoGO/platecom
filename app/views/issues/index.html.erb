@@ -1,0 +1,52 @@
+
+<% if @opened_issues.count != 0 %>
+	<section class="my_opened_issues">
+		<% @opened_issues.each do |issue| %>
+			<article class="media status attribution">
+			  <div class="bd">
+					<p>Matrícula receptora del issue: <%= issue.receiver_id %></p>
+					<p>Fecha de creación: <%= issue.created_at %></p>
+					<p>Descripción del issue: <%= issue.description %></p>
+				</div>
+			</article>
+		<% end %>
+	</section>
+<% else %>
+	<p class="empty_opened_issues_message"> No has abierto ningún issue </p>
+<% end %>
+	
+	<br>
+	<br>	
+	<br>
+
+<% if @received_issues.count != 0 %>
+	<% @received_issues.each do |issue| %>
+		<article class="media status attribution">
+		  <div class="bd">
+				<p>Matrícula que me ha abierto el issue: <%= issue.opener_id %></p>
+				<p>Fecha de creación: <%= issue.created_at %></p>
+				<p>Descripción del issue: <%= issue.description %></p>
+			</div>
+		</article>
+	<% end %>
+<% else %>
+	<p class="empty_received_issues_message"> No te han abierto ningún issue </p>
+<% end %>
+
+
+
+<%= form_for [@user, @issue], remote: true do |f| %>
+
+	<%= f.label :receiver_id, 'Matrícula/s: ' %>
+	<%= f.text_field :receiver_id, placeholder: " Matrículas implicadas" %>
+	<br>
+	<%= f.label :description, 'Descripción: ' %>
+	<%= f.text_field :description, placeholder: " Descripción de la situación" %>
+	<br>
+	<%= f.hidden_field :opener_id, value: @user.id %>
+	<br>
+
+
+	<%= f.submit 'Save' %>
+
+<% end %>
