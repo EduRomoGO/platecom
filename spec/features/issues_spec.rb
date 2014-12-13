@@ -23,9 +23,6 @@ describe "User issues page", :type => :feature do
 																										 		:description => 'park issue newer',
 																										 		:receiver_id => u.id)}
 
-  xit "shows itself when visited" do
-    visit '/users/1/issues'
-  end
 
 =begin
   xit "capybara test" do
@@ -33,7 +30,11 @@ describe "User issues page", :type => :feature do
     page.should have_xpath('//p')
     expect(all('p').count).to be(1)
   end
-=end
+
+
+  xit "shows itself when visited" do
+    visit '/users/1/issues'
+  end
 
 
   it "shows the issues list where user is owner" do
@@ -69,7 +70,6 @@ describe "User issues page", :type => :feature do
 
 
   describe "has a form to create a new issue", :type => :feature do
-
 	  it "that has a form tag" do
 
 	    visit "/users/#{u.id}/issues"
@@ -102,13 +102,22 @@ describe "User issues page", :type => :feature do
 	    expect(find('input[name="commit"]').value).to eq("Save")
 	  end
 
-	  it "that has an input hidden which holds the user id value" do
+	  it "that has an input hidden which holds the issue opener id value" do
 
 	    visit "/users/#{u.id}/issues"
 	    expect(all('input#issue_opener_id').count).to be(1)
 	    expect(find('input#issue_opener_id').value).to eq("#{u.id}")
 	  end
-
 	end
+=end
+
+  describe "when no user is signed in", :type => :feature do
+	  it "shows the devise registration form for new users with all of the fields empty" do
+	    visit "/users/#{u.id}/issues"
+	    expect(all('form').count).to be(1)
+    	expect(all('input').text).to eq('')
+	  end
+	end
+
 
 end

@@ -5,12 +5,17 @@ class IssuesController < ApplicationController
 		@received_issues = Issue.where(receiver_id: params[:user_id])
 		begin
 			#binding.pry
-			@user = User.find params[:user_id]
-			if(@user.opened_issues.count > 0)
-					@opened_issues = User.first.opened_issues
+			if user_signed_in?
+				@user = current_user
+				if(@user.opened_issues.count > 0)
+						@opened_issues = User.first.opened_issues
+				else
+						@opened_issues = []		
+				end
 			else
-					@opened_issues = []		
+				@user = User.new
 			end
+
 		rescue ActiveRecord::RecordNotFound
 			@opened_issues = []
 		end
