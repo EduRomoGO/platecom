@@ -9,7 +9,7 @@ class IssuesController < ApplicationController
 			if( (user_signed_in?) and (current_user == user_url) )
 				@user = current_user
 				if(@user.opened_issues.count > 0)
-						@opened_issues = User.first.opened_issues
+						@opened_issues = @user.opened_issues
 				else
 						@opened_issues = []		
 				end

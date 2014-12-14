@@ -1,5 +1,5 @@
 
-<% if @user.id.present? %>
+<% if(@user.present? and @user.id.present?) %>
 	<% if @opened_issues.count != 0 %>
 		<section class="my_opened_issues">
 			<% @opened_issues.each do |issue| %>

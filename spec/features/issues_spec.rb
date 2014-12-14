@@ -23,9 +23,9 @@ describe "User issues page", :type => :feature do
 																										 		:description => 'park issue newer',
 																										 		:receiver_id => u.id)}
 
-	let(:registrate_user_u) {within("section.login") do
-														fill_in('user_plate', :with => '1234AAA')
-														fill_in('user_password', :with => '12345678')
+	let(:sign_in_user_u) {within("section.login") do
+														fill_in('user_plate', :with => u.plate)
+														fill_in('user_password', :with => u.password)
 														click_button('Log in')
 											     end}
 
@@ -42,32 +42,32 @@ describe "User issues page", :type => :feature do
   end
 
   it "shows the issues list where user is opener" do
-  	registrate_user_u
   	create_test_issues_for_opener
-
     visit "/users/#{u.id}/issues"
+  	sign_in_user_u
+
     expect(all('article').count).to be(2)
   end
 
   it "shows the issues list where user is the receiver of the issue" do
-  	registrate_user_u
 		create_test_issues_for_receiver
 
     visit "/users/#{u.id}/issues"
+  	sign_in_user_u
     expect(all('article').count).to be(3)
   end
 
   it "show info message if doesnt get any issues where the user is the opener" do
-  	registrate_user_u
     visit "/users/#{u.id}/issues"
+  	sign_in_user_u
     expect(all('article').count).to be(0)
     expect(page.has_css?('p.empty_opened_issues_message')).to be(true)
     expect(find('p.empty_opened_issues_message').text).to eq('No has abierto ningún issue')
   end
 
   it "show info message if doesnt get any issues where the user is receiver" do
-  	registrate_user_u
     visit "/users/#{u.id}/issues"
+  	sign_in_user_u
     expect(all('article').count).to be(0)
     expect(page.has_css?('p.empty_received_issues_message')).to be(true)
   end
@@ -77,24 +77,28 @@ describe "User issues page", :type => :feature do
 	  it "that has a form tag" do
 
 	    visit "/users/#{u.id}/issues"
+  		sign_in_user_u
 	    expect(all('form').count).to be(1)
 	  end
 
 	  it "that has an input for the user plate" do
 
 	    visit "/users/#{u.id}/issues"
+  		sign_in_user_u	    
 	    expect(all('input#issue_receiver_id').count).to be(1)
 	  end
 
 	  it "where the input for the plate field is empty" do
 
 	    visit "/users/#{u.id}/issues"
+  		sign_in_user_u
 	    expect(find('input#issue_receiver_id').text).to eq("")
 	  end
 
 	  it "that has one and only one empty description input for the body of the the issue" do
 
 	    visit "/users/#{u.id}/issues"
+  		sign_in_user_u
 	    expect(all('input#issue_description').count).to be(1)
 	    expect(find('input#issue_description').text).to eq("")
 	  end
@@ -102,6 +106,7 @@ describe "User issues page", :type => :feature do
 	  it "that has one button to submit the form" do
 
 	    visit "/users/#{u.id}/issues"
+  		sign_in_user_u	    
 	    expect(all('input[name="commit"]').count).to be(1)
 	    expect(find('input[name="commit"]').value).to eq("Save")
 	  end
@@ -109,6 +114,7 @@ describe "User issues page", :type => :feature do
 	  it "that has an input hidden which holds the issue opener id value" do
 
 	    visit "/users/#{u.id}/issues"
+  		sign_in_user_u	    
 	    expect(all('input#issue_opener_id').count).to be(1)
 	    expect(find('input#issue_opener_id').value).to eq("#{u.id}")
 	  end
