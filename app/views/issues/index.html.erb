@@ -1,5 +1,5 @@
 
-<% if user_signed_in? %>
+<% if @user.id.present? %>
 	<% if @opened_issues.count != 0 %>
 		<section class="my_opened_issues">
 			<% @opened_issues.each do |issue| %>
@@ -54,6 +54,11 @@
 
 <% else %>
 
-	<%= render partial: "new_user", locals: {resource: @user} %>
+	<section class="signup">
+		<%= render partial: "new_user", locals: {resource: @user} %>
+	</section>
+	<section class="login">
+		<%= render partial: "new_session", locals: {resource: @user} %>
+	</section>
 
 <% end %>

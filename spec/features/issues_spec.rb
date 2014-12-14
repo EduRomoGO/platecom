@@ -23,22 +23,26 @@ describe "User issues page", :type => :feature do
 																										 		:description => 'park issue newer',
 																										 		:receiver_id => u.id)}
 
+	let(:registrate_user_u) {within("section.login") do
+														fill_in('user_plate', :with => '1234AAA')
+														fill_in('user_password', :with => '12345678')
+														click_button('Log in')
+											     end}
 
-=begin
+
+
   xit "capybara test" do
     visit '/users/1/issues'
     page.should have_xpath('//p')
     expect(all('p').count).to be(1)
   end
 
-
   xit "shows itself when visited" do
     visit '/users/1/issues'
   end
 
-
-  it "shows the issues list where user is owner" do
-
+  it "shows the issues list where user is opener" do
+  	registrate_user_u
   	create_test_issues_for_opener
 
     visit "/users/#{u.id}/issues"
@@ -46,15 +50,15 @@ describe "User issues page", :type => :feature do
   end
 
   it "shows the issues list where user is the receiver of the issue" do
-
+  	registrate_user_u
 		create_test_issues_for_receiver
 
     visit "/users/#{u.id}/issues"
     expect(all('article').count).to be(3)
   end
 
-  it "show info message if doesnt get any issues where the user is the owner" do
-
+  it "show info message if doesnt get any issues where the user is the opener" do
+  	registrate_user_u
     visit "/users/#{u.id}/issues"
     expect(all('article').count).to be(0)
     expect(page.has_css?('p.empty_opened_issues_message')).to be(true)
@@ -62,7 +66,7 @@ describe "User issues page", :type => :feature do
   end
 
   it "show info message if doesnt get any issues where the user is receiver" do
-
+  	registrate_user_u
     visit "/users/#{u.id}/issues"
     expect(all('article').count).to be(0)
     expect(page.has_css?('p.empty_received_issues_message')).to be(true)
@@ -109,13 +113,27 @@ describe "User issues page", :type => :feature do
 	    expect(find('input#issue_opener_id').value).to eq("#{u.id}")
 	  end
 	end
-=end
+
 
   describe "when no user is signed in", :type => :feature do
 	  it "shows the devise registration form for new users with all of the fields empty" do
 	    visit "/users/#{u.id}/issues"
-	    expect(all('form').count).to be(1)
-    	expect(all('input').text).to eq('')
+	    expect(all('form.new_user').count).to be(1)
+    	within("section.signup") do
+	    	expect(find('input#user_email').text).to eq('')
+	    	expect(find('input#user_plate').text).to eq('')
+	    	expect(find('input#user_password').text).to eq('')
+	    	expect(find('input#user_password_confirmation').text).to eq('')	      	
+    	end
+	  end
+
+	  it "shows the devise log in form with all of the fields empty" do
+	    visit "/users/#{u.id}/issues"
+    	expect(find("section.login").all('form.new_session').count).to be(1)
+    	within("section.login") do
+	    	expect(find('input#user_plate').text).to eq('')
+	    	expect(find('input#user_password').text).to eq('')
+    	end
 	  end
 	end
 

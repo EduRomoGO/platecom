@@ -5,7 +5,8 @@ class IssuesController < ApplicationController
 		@received_issues = Issue.where(receiver_id: params[:user_id])
 		begin
 			#binding.pry
-			if user_signed_in?
+			user_url = User.find params[:user_id]
+			if( (user_signed_in?) and (current_user == user_url) )
 				@user = current_user
 				if(@user.opened_issues.count > 0)
 						@opened_issues = User.first.opened_issues
