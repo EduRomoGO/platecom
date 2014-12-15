@@ -12,4 +12,8 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  def not_empty_user? user
+  	user.id.present?
+  end
+
 end

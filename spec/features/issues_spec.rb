@@ -30,15 +30,8 @@ describe "User issues page", :type => :feature do
 											     end}
 
 
-
-  xit "capybara test" do
-    visit '/users/1/issues'
-    page.should have_xpath('//p')
-    expect(all('p').count).to be(1)
-  end
-
-  xit "shows itself when visited" do
-    visit '/users/1/issues'
+  it "shows itself when visited" do
+    visit "/users/#{u.id}/issues"
   end
 
   it "shows the issues list where user is opener" do

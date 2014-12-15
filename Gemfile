@@ -48,6 +48,6 @@ gem 'pry-rails'
 
 gem 'devise'
 
-gem 'pry-stack_explorer'
+#gem 'pry-stack_explorer'
 
-gem 'pry-debugger'
+#gem 'pry-debugger'

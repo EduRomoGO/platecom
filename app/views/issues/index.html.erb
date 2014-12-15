@@ -1,5 +1,7 @@
 
-<% if(@user.present? and @user.id.present?) %>
+<% if not_empty_user?(@user) %>
+	<%= link_to 'Sign Out', destroy_user_session_path, method: :delete,
+		data: { confirm: 'Are you sure?' } %>
 	<% if @opened_issues.count != 0 %>
 		<section class="my_opened_issues">
 			<% @opened_issues.each do |issue| %>

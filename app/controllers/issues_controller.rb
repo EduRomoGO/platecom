@@ -1,24 +1,16 @@
 class IssuesController < ApplicationController
 
 	def index
-		@issue = Issue.new
-		@received_issues = Issue.where(receiver_id: params[:user_id])
-		begin
-			#binding.pry
-			user_url = User.find params[:user_id]
-			if( (user_signed_in?) and (current_user == user_url) )
-				@user = current_user
-				if(@user.opened_issues.count > 0)
-						@opened_issues = @user.opened_issues
-				else
-						@opened_issues = []		
-				end
-			else
-				@user = User.new
-			end
 
-		rescue ActiveRecord::RecordNotFound
-			@opened_issues = []
+		user_url = User.find params[:user_id]
+
+		if( (user_signed_in?) and (current_user == user_url) )
+			@user = current_user
+			@issue = Issue.new
+			@received_issues = @user.received_issues
+			@opened_issues = @user.opened_issues
+		else
+			@user = User.new
 		end
 
 	end
