@@ -7,14 +7,18 @@
 </article>
 
 <p class="comments">Comentarios sobre este issue:</p>
-<% @comments.each do |comment| %>
-	<article class="comment">
-		<p>Body del comment: <%= comment.body %></p>
-	</article>
+<% if @comments.count > 0 %>
+  <% @comments.each do |comment| %>
+  	<article class="comment">
+      <p>Fecha de creación: <%= comment.created_at %></p>
+  		<p>Body del comment: <%= comment.body %></p>
+  	</article>
+  <% end %>
+<% else %>
+  <p class="no_comments">El issue no tiene comentarios</p>
 <% end %>
 
-
-<%= form_for [@comment], remote: true, format: :js do |f| %>
+<%= form_for [@comment], remote: true, format: :js, :html => {class: "new_comment"} do |f| %>
 <section class="new_comment">
 	<p>Crea un comentario para el issue actual: </p>
 		<%= f.label :body, 'Texto: ' %>
@@ -26,3 +30,5 @@
 		<%= f.submit 'Save' , :id => 'new_comment' %>
 </section>
 <% end %>
+
+<p> <%=link_to 'Ir a Issues', user_issues_path(current_user.id) %> </p>

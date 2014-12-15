@@ -65,6 +65,32 @@ describe "User issues page", :type => :feature do
     expect(page.has_css?('p.empty_received_issues_message')).to be(true)
   end
 
+  it "has a link for each opened issue that redirects to that issue" do
+    create_test_issues_for_opener
+    visit "/users/#{u.id}/issues"
+    sign_in_user_u
+    within("p.link#{u.opened_issues.first.id}") do
+      click_link('Llevame al issue')
+    end  
+    expect(page.should have_css('form.new_comment')).to be(true)
+  end
+
+  it "has a link for each received issue that redirects to that issue" do 
+    create_test_issues_for_receiver
+    visit "/users/#{u.id}/issues"
+    sign_in_user_u
+    within("p.link#{u.received_issues.first.id}") do
+      click_link('Llevame al issue')
+    end  
+    expect(page.should have_css('form.new_comment')).to be(true)  
+  end
+
+  it "doesnt show any issue redirection link if the user has not any issues" do 
+    visit "/users/#{u.id}/issues"
+    sign_in_user_u
+
+    expect(all('Llevame al issue').count).to be(0) 
+  end
 
   describe "has a form to create a new issue", :type => :feature do
 	  it "that has a form tag" do

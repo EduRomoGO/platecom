@@ -2,10 +2,11 @@
 <% if not_empty_user?(@user) %>
 	<%= link_to 'Sign Out', destroy_user_session_path, method: :delete,
 		data: { confirm: 'Are you sure?' } %>
-	<% if @opened_issues.count != 0 %>
-		<section class="my_opened_issues">
+	<section class="my_opened_issues">
+		<% if @opened_issues.count != 0 %>
 			<% @opened_issues.each do |issue| %>
 				<article class="media status attribution">
+					<p class="link<%="#{issue.id}"%>"> <%=link_to 'Llevame al issue', user_issue_path(current_user.id, issue.id) %> </p>
 				  <div class="bd">
 						<p>Matrícula receptora del issue: <%= issue.receiver_id %></p>
 						<p>Fecha de creación: <%= issue.created_at %></p>
@@ -13,32 +14,34 @@
 					</div>
 				</article>
 			<% end %>
-		</section>
-	<% else %>
-		<p class="empty_opened_issues_message"> No has abierto ningún issue </p>
-	<% end %>
-		
-		<br>
-		<br>	
-		<br>
-
-	<% if @received_issues.count != 0 %>
-		<% @received_issues.each do |issue| %>
-			<article class="media status attribution">
-			  <div class="bd">
-					<p>Matrícula que me ha abierto el issue: <%= issue.opener_id %></p>
-					<p>Fecha de creación: <%= issue.created_at %></p>
-					<p>Descripción del issue: <%= issue.description %></p>
-				</div>
-			</article>
+		<% else %>
+			<p class="empty_opened_issues_message"> No has abierto ningún issue </p>
 		<% end %>
-	<% else %>
-		<p class="empty_received_issues_message"> No te han abierto ningún issue </p>
-	<% end %>
+	</section>
+
+	<br>
+	<br>	
+	<br>
+
+	<section class="my_received_issues">
+		<% if @received_issues.count != 0 %>
+			<% @received_issues.each do |issue| %>
+				<article class="media status attribution">
+					<p class="link<%="#{issue.id}"%>"> <%=link_to 'Llevame al issue', user_issue_path(current_user.id, issue.id) %> </p>
+				  <div class="bd">
+						<p>Matrícula que me ha abierto el issue: <%= issue.opener_id %></p>
+						<p>Fecha de creación: <%= issue.created_at %></p>
+						<p>Descripción del issue: <%= issue.description %></p>
+					</div>
+				</article>
+			<% end %>
+		<% else %>
+			<p class="empty_received_issues_message"> No te han abierto ningún issue </p>
+		<% end %>
+	</section>
 
 
-
-	<%= form_for [@user, @issue], remote: true do |f| %>
+	<%= form_for [@user, @issue], remote: true, :html => {class: "new_issue"} do |f| %>
 
 		<%= f.label :receiver_id, 'Matrícula/s: ' %>
 		<%= f.text_field :receiver_id, placeholder: " Matrículas implicadas" %>

@@ -1,5 +1,6 @@
 $('.my_opened_issues').prepend(' \
 <article class="media status attribution"> \
+  <p> <%=link_to "Llevame al issue", user_issue_path(current_user.id, resource.id) %> </p> \
   <div class="bd"> \
 		<p>Matrícula que me ha abierto el issue: <%= resource.opener_id %></p> \
 		<p>Fecha de creación: <%= resource.created_at %></p> \
@@ -8,3 +9,4 @@ $('.my_opened_issues').prepend(' \
 </article> \
 ');
 
+$('.empty_opened_issues_message').hide();
