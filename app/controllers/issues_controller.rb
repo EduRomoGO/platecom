@@ -17,8 +17,9 @@ class IssuesController < ApplicationController
 
 	def create
 		@issue = Issue.new(issue_params)
-		
+    @plate_of_issue_opener = User.find_by(id: @issue.opener_id).plate
 		if @issue.save
+      IssueMailer.issue_created(@issue, @plate_of_issue_opener).deliver
 			respond_to do |format|
 				format.js do
 					render(
