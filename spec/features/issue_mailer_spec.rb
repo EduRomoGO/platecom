@@ -12,7 +12,7 @@ describe "Issues mailer" do
                             :receiver_id => user2.id)}
   let(:issue_mailer) {IssueMailer.issue_created(issue, user.plate)}
  
-  it "sends an email" do
+  xit "sends an email" do
     expect { issue_mailer }.to change { ActionMailer::Base.deliveries.count }.by(1)
   end
 end

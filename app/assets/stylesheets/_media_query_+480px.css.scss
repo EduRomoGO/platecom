@@ -1,0 +1,48 @@
+@media (min-width: 480px) {
+
+  [class^="col_"]{
+    display: block;
+    float: left;
+  }
+
+  .row{
+    width: 1200px;
+  }
+  .col_1{
+    width: 89px;
+  }
+  .col_2{
+    width: 189px;
+  }
+  .col_3{
+    width: 289px;
+  }
+  .col_4{
+    width: 389px;
+  }
+  .col_5{
+    width: 489px;
+  }
+  .col_6{
+    width: 589px;
+  }
+  .col_7{
+    width: 689px;
+  }
+  .col_8{
+    width: 789px;
+  }
+  .col_9{
+    width: 889px;
+  }
+  .col_10{
+    width: 989px;
+  }
+  .col_11{
+    width: 1089px;
+  }
+  .col_12{
+    width: 1200px;
+  }
+
+}

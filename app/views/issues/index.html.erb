@@ -1,62 +1,100 @@
 
 <% if not_empty_user?(@user) %>
-	<%= link_to 'Sign Out', destroy_user_session_path, method: :delete,
-		data: { confirm: 'Are you sure?' } %>
-	<section class="my_opened_issues">
-		<% if @opened_issues.count != 0 %>
-			<% @opened_issues.each do |issue| %>
-				<article class="media status attribution">
-					<p class="link<%="#{issue.id}"%>"> <%=link_to 'Llevame al issue', user_issue_path(current_user.id, issue.id) %> </p>
-				  <div class="bd">
-						<p>Matrícula receptora del issue: <%= issue.receiver_id %></p>
-						<p>Fecha de creación: <%= issue.created_at %></p>
-						<p>Descripción del issue: <%= issue.description %></p>
-					</div>
-				</article>
-			<% end %>
-		<% else %>
-			<p class="empty_opened_issues_message"> No has abierto ningún issue </p>
-		<% end %>
+
+	<header>
+		<%= link_to 'Sign Out', destroy_user_session_path, method: :delete,
+			data: { confirm: 'Are you sure?' } %>
+
+			<div class="plate">
+			  
+			  <div>
+			    <div class="dot left top"></div>
+			    <div class="dot right top"></div>
+			  </div>
+			  
+				<p><%= current_user.plate %></p>
+			  
+			  <div>
+			    <div class="dot left bottom"></div>
+			    <div class="dot right bottom"></div>
+			  </div>
+			  
+			</div>
+
+	</header>
+
+	<section class="home_with_user col_11">
+
+		<section class="new_issue_form col_9">
+			<h1 class="new_issue_form_title">Create new issue</h1>
+			<div class="form col_6">
+				<%= form_for [@user, @issue], remote: true, :html => {class: "new_issue"} do |f| %>
+
+					<%= f.label :receiver_id, 'Plate: ' %>
+					<br>
+					<%= f.text_field :receiver_id, size: 10, placeholder: " Plate number" %>
+					<br>
+					<%= f.label :description, 'Description: ' %>
+					<br>
+					<%= f.text_area :description, class: "textarea", size: "30x5", placeholder: " Park issue description" %>
+					<br>
+					<%= f.hidden_field :opener_id, value: @user.id %>
+
+					<%= f.submit 'Save', class: "new_issue_button" %>
+
+				<% end %>
+			</div>
+		</section>
+
+		<div class="issues_lists col_9">
+
+			<section class="my_opened_issues col_4">
+				<h1 class="my_opened_issues_title">Opened issues</h1>
+				<div>
+					<% if @opened_issues.count != 0 %>
+						<% @opened_issues.each do |issue| %>
+							<article class="media status attribution">
+								<p class="link<%="#{issue.id}"%>"> <%=link_to 'Llevame al issue', user_issue_path(current_user.id, issue.id) %> </p>
+							  <div class="bd">
+									<p>Matrícula receptora del issue: <%= issue.receiver_id %></p>
+									<p>Fecha de creación: <%= issue.created_at %></p>
+									<p>Descripción del issue: <%= issue.description %></p>
+								</div>
+							</article>
+						<% end %>
+					<% else %>
+						<p class="empty_opened_issues_message"> You have not opened any issue </p>
+					<% end %>
+				</div>
+			</section>
+
+			<section class="my_received_issues col_4">
+				<h1>Received issues</h1>
+				<div>
+					<% if @received_issues.count != 0 %>
+						<% @received_issues.each do |issue| %>
+							<article class="media status attribution">
+								<p class="link<%="#{issue.id}"%>"> <%=link_to 'Llevame al issue', user_issue_path(current_user.id, issue.id) %> </p>
+							  <div class="bd">
+									<p>Matrícula que me ha abierto el issue: <%= issue.opener_id %></p>
+									<p>Fecha de creación: <%= issue.created_at %></p>
+									<p>Descripción del issue: <%= issue.description %></p>
+								</div>
+							</article>
+						<% end %>
+					<% else %>
+						<p class="empty_received_issues_message"> You have not received any issue </p>
+					<% end %>
+				</div>
+			</section>
+
+		</div>
+
 	</section>
 
-	<br>
-	<br>	
-	<br>
-
-	<section class="my_received_issues">
-		<% if @received_issues.count != 0 %>
-			<% @received_issues.each do |issue| %>
-				<article class="media status attribution">
-					<p class="link<%="#{issue.id}"%>"> <%=link_to 'Llevame al issue', user_issue_path(current_user.id, issue.id) %> </p>
-				  <div class="bd">
-						<p>Matrícula que me ha abierto el issue: <%= issue.opener_id %></p>
-						<p>Fecha de creación: <%= issue.created_at %></p>
-						<p>Descripción del issue: <%= issue.description %></p>
-					</div>
-				</article>
-			<% end %>
-		<% else %>
-			<p class="empty_received_issues_message"> No te han abierto ningún issue </p>
-		<% end %>
-	</section>
-
-<p>Numero de mails enviados: <%= ActionMailer::Base.deliveries.count %></p> 
-
-	<%= form_for [@user, @issue], remote: true, :html => {class: "new_issue"} do |f| %>
-
-		<%= f.label :receiver_id, 'Matrícula/s: ' %>
-		<%= f.text_field :receiver_id, placeholder: " Matrículas implicadas" %>
-		<br>
-		<%= f.label :description, 'Descripción: ' %>
-		<%= f.text_field :description, placeholder: " Descripción de la situación" %>
-		<br>
-		<%= f.hidden_field :opener_id, value: @user.id %>
-		<br>
-
-
-		<%= f.submit 'Save' %>
-
-	<% end %>
+	<footer>
+		platecom
+	</footer>
 
 <% else %>
 

@@ -55,7 +55,7 @@ describe "User issues page", :type => :feature do
   	sign_in_user_u
     expect(all('article').count).to be(0)
     expect(page.has_css?('p.empty_opened_issues_message')).to be(true)
-    expect(find('p.empty_opened_issues_message').text).to eq('No has abierto ningún issue')
+    expect(find('p.empty_opened_issues_message').text).to eq('You have not opened any issue')
   end
 
   it "show info message if doesnt get any issues where the user is receiver" do
@@ -118,8 +118,8 @@ describe "User issues page", :type => :feature do
 
 	    visit "/users/#{u.id}/issues"
   		sign_in_user_u
-	    expect(all('input#issue_description').count).to be(1)
-	    expect(find('input#issue_description').text).to eq("")
+	    expect(all('textarea#issue_description').count).to be(1)
+	    expect(find('textarea#issue_description').text).to eq("")
 	  end
 
 	  it "that has one button to submit the form" do

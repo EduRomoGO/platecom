@@ -1,3 +1,161 @@
 // Place all the styles related to the issues controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "reset";
+@import "variables";
+@import "mixins";
+@import "media_query_+480px";
+
+// Placeholder centered
+%centered {
+  margin: 0 auto;
+}
+
+.container {
+  background-image: url(/assets/bg.png);
+}
+
+
+// header
+header, footer {
+  overflow: hidden;
+  background-color: black;
+  a, .plate {
+    color: white;
+    display: block;
+    float: right;
+    margin-right: 10px;
+    margin-top: 8px;
+    margin-bottom: 2px;
+  }
+  a {
+    margin-top: 14px;
+  }
+  height: 50px;
+}
+
+// plate
+.plate {
+  border: 1px grey solid;
+  display: inline-block;
+  zoom: 1;
+  border-radius: 4px;
+  width: 100px;
+
+  overflow: hidden;
+  padding-left: 4px;
+}
+
+.dot {
+  border-radius: 50%;
+  width: 3px;
+  height: 3px; 
+  background-color: white;
+  display: inline;
+}
+
+p {
+  display: inline-block;
+  margin: 4px 4px 0 4px;
+}
+
+.left {
+  float: left;
+  margin-left: 2px;
+}
+
+.right {
+  float: right;
+  margin-right: 2px;
+}
+
+.top {
+  margin-top: 2px;
+}
+
+.bottom {
+  margin-bottom: 2px;
+}
+// fin header
+
+
+
+
+
+.issues_lists {
+  @extend %centered;
+
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.my_opened_issues {
+  float: left;
+}
+
+.my_received_issues {
+  float: right;
+}
+
+.my_opened_issues, .my_received_issues {
+  @extend .col_3;
+  background-color: lighten($issues_lists_color, 30%);
+}
+
+.my_opened_issues div, .my_received_issues div {
+  padding: 5px;
+}
+
+
+.home_with_user {
+
+  padding: 20px;
+}
+
+.home_with_user section {
+  vertical-align: top;
+}
+
+.home_with_user, .new_issue_form {
+  @extend %centered;
+}
+
+
+
+.issues_lists h1, .new_issue_form h1 {
+  background-color:  darken($issues_lists_color, 15%);
+  color: white;
+  text-align: center;
+  margin-bottom: 5px;
+  padding: 5px 0 5px 0;
+}
+
+
+// Form
+
+.new_issue_form {
+  margin-top: 20px;
+  background-color: lighten($issues_lists_color, 30%);
+}
+
+.form {
+  @extend %centered;
+  overflow: hidden;
+  padding-top: 5px;
+  margin: 7px;
+}
+
+.textarea {
+  width: 100%;
+}
+
+.new_issue_button {
+  display: block;
+  float: right;
+  background-color: darken($issues_lists_color, 15%);
+  color: white;
+  border: none;
+  margin-bottom: 10px;
+}
+
+
