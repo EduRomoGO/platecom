@@ -1,12 +1,12 @@
 <article class="issue">
   <div class="bd">
-		<p>Matrícula target del issue: <%= @issue.receiver_id %></p>
-		<p>Fecha de creación: <%= @issue.created_at %></p>
+		<p>Issue receiver: <%= @issue.receiver.plate %></p>
+		<p>Creation date: <%= @issue.created_at %></p>
 		<p>Descripción del issue: <%= @issue.description %></p>
 	</div>
 </article>
 
-<p class="comments">Comentarios sobre este issue:</p>
+<p class="comments">Comments related to the issue:</p>
 <% if @comments.count > 0 %>
   <% @comments.each do |comment| %>
   	<article class="comment">
@@ -15,14 +15,14 @@
   	</article>
   <% end %>
 <% else %>
-  <p class="no_comments">El issue no tiene comentarios</p>
+  <p class="no_comments">The issue has not commentes yet</p>
 <% end %>
 
 <%= form_for [@comment], remote: true, format: :js, :html => {class: "new_comment"} do |f| %>
 <section class="new_comment">
-	<p>Crea un comentario para el issue actual: </p>
-		<%= f.label :body, 'Texto: ' %>
-		<%= f.text_field :body, placeholder: " Texto del comentario" %>
+	<p>Post a comment: </p>
+		<%= f.label :body, 'Body: ' %>
+		<%= f.text_field :body, placeholder: " Comment body" %>
 		<br>
 		<%= f.hidden_field :issue_id, value: @issue.id %>
 		<br>

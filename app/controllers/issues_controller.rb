@@ -7,8 +7,8 @@ class IssuesController < ApplicationController
 		if( (user_signed_in?) and (current_user == user_url) )
 			@user = current_user
 			@issue = Issue.new
-			@received_issues = @user.received_issues
-			@opened_issues = @user.opened_issues
+			@received_issues = @user.received_issues.order(created_at: :desc)
+			@opened_issues = @user.opened_issues.order(created_at: :desc)
 		else
 			@user = User.new
 		end
@@ -16,34 +16,49 @@ class IssuesController < ApplicationController
 	end
 
 	def create
-		@issue = Issue.new(issue_params)
-    @plate_of_issue_opener = User.find_by(id: @issue.opener_id).plate
-		if @issue.save
-      IssueMailer.issue_created(@issue, @plate_of_issue_opener).deliver
-			respond_to do |format|
-				format.js do
-					render(
-						partial: 'create_issue',
-						locals: { resource: @issue })
-				end
-			end
-		end
+    opener = User.find_by(plate: params[:receiver_id])
+    @plate = params[:receiver_id]
+    if opener
+      @issue = Issue.new(issue_params)
+      @plate_of_issue_opener = User.find_by(id: @issue.opener_id).plate
+  		if @issue.save
+        IssueMailer.issue_created(@issue, @plate_of_issue_opener).deliver
+  			respond_to do |format|
+  				format.js do
+  					render(
+  						partial: 'create_issue',
+  						locals: { resource: @issue })
+  				end
+  			end
+  		end
+    else
+          #render 'user_does_not_exist'
+      respond_to do |format|
+        format.js do
+          render(
+            partial: 'user_does_not_exist_msg',
+            locals: { resource: @plate })
+        end
+      end
+    end
 	end
-
-  def issue_params
-    params.require(:issue).permit(:opener_id, :receiver_id, :description)
-  end
-
 
 	def show
     if(current_user_matches_url_user? and url_issue_is_related_to_current_user?)
   		@issue = Issue.find (params[:id])
-  		@comments = @issue.comments
+  		@comments = @issue.comments.order(created_at: :desc)
   		@comment = Comment.new
     else
       render 'this_issue_is_not_related_to_you.html'
     end
 	end
+
+
+  private
+
+  def issue_params
+    params.require(:issue).permit(:opener_id, :description)
+  end
 
   def current_user_matches_url_user?
     user_url = User.find params[:user_id]

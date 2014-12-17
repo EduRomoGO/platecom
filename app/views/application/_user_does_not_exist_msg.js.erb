@@ -1,0 +1,8 @@
+
+if ($('.plate_doesnt_exist').length === 0) {
+  $('#issue_receiver_id').after('<p class="plate_doesnt_exist"> <%= @plate %> This plate does not exist </p>');
+}
+
+$('.plate_doesnt_exist').delay(1000).fadeOut(2000, function() {
+        $(this).remove();
+    });

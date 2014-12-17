@@ -15,6 +15,9 @@
   background-image: url(/assets/bg.png);
 }
 
+body{
+  font-family: 'helvetica', sans-serif;
+}
 
 // header
 header, footer {
@@ -78,7 +81,9 @@ p {
 }
 // fin header
 
-
+bold {
+  font-weight: bold;
+}
 
 
 
@@ -99,7 +104,7 @@ p {
 
 .my_opened_issues, .my_received_issues {
   @extend .col_3;
-  background-color: lighten($issues_lists_color, 30%);
+  background-color: $issues_lists_color;
 }
 
 .my_opened_issues div, .my_received_issues div {
@@ -123,7 +128,7 @@ p {
 
 
 .issues_lists h1, .new_issue_form h1 {
-  background-color:  darken($issues_lists_color, 15%);
+  background-color:  darken($issues_lists_color, 20%);
   color: white;
   text-align: center;
   margin-bottom: 5px;
@@ -135,7 +140,7 @@ p {
 
 .new_issue_form {
   margin-top: 20px;
-  background-color: lighten($issues_lists_color, 30%);
+  background-color: $issues_lists_color;
 }
 
 .form {
@@ -152,10 +157,15 @@ p {
 .new_issue_button {
   display: block;
   float: right;
-  background-color: darken($issues_lists_color, 15%);
+  background-color: darken($issues_lists_color, 20%);
   color: white;
   border: none;
   margin-bottom: 10px;
 }
 
 
+.plate_doesnt_exist {
+  background-color: darken($issues_lists_color, 20%);
+  color: red;
+  padding: 0 3px 0 3px;
+}

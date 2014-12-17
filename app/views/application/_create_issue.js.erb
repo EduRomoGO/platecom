@@ -1,10 +1,10 @@
 $('.my_opened_issues_title').after(' \
 <article class="media status attribution"> \
-  <p> <%=link_to "Llevame al issue", user_issue_path(current_user.id, resource.id) %> </p> \
+  <p> <%=link_to "Take me to the issue", user_issue_path(current_user.id, resource.id) %> </p> \
   <div class="bd"> \
-		<p>Matrícula receptora del issue: <%= resource.receiver_id %></p> \
-		<p>Fecha de creación: <%= resource.created_at %></p> \
-		<p>Descripción del issue: <%= resource.description %></p> \
+		<p><bold>Issue receiver:</bold> <%= resource.receiver_id %></p> \
+		<p><bold>Creation date:</bold> <%= resource.created_at %></p> \
+		<p><bold>Issue description:</bold> <%= resource.description %></p> \
 	</div> \
 </article> \
 ');

@@ -32,7 +32,7 @@
 
 					<%= f.label :receiver_id, 'Plate: ' %>
 					<br>
-					<%= f.text_field :receiver_id, size: 10, placeholder: " Plate number" %>
+					<%= f.text_field :receiver_id, size: 10, placeholder: ' "1234AAA"' %>
 					<br>
 					<%= f.label :description, 'Description: ' %>
 					<br>
@@ -54,11 +54,11 @@
 					<% if @opened_issues.count != 0 %>
 						<% @opened_issues.each do |issue| %>
 							<article class="media status attribution">
-								<p class="link<%="#{issue.id}"%>"> <%=link_to 'Llevame al issue', user_issue_path(current_user.id, issue.id) %> </p>
+								<p class="link<%="#{issue.id}"%>"> <%=link_to 'Take me to the issue', user_issue_path(current_user.id, issue.id) %> </p>
 							  <div class="bd">
-									<p>Matrícula receptora del issue: <%= issue.receiver_id %></p>
-									<p>Fecha de creación: <%= issue.created_at %></p>
-									<p>Descripción del issue: <%= issue.description %></p>
+									<p><bold>Issue receiver:</bold> <%= issue.receiver_id %></p>
+									<p><bold>Creation date:</bold> <%= issue.created_at %></p>
+									<p><bold>Issue description:</bold> <%= truncate(issue.description , length: 10)%></p>
 								</div>
 							</article>
 						<% end %>
@@ -74,11 +74,11 @@
 					<% if @received_issues.count != 0 %>
 						<% @received_issues.each do |issue| %>
 							<article class="media status attribution">
-								<p class="link<%="#{issue.id}"%>"> <%=link_to 'Llevame al issue', user_issue_path(current_user.id, issue.id) %> </p>
+								<p class="link<%="#{issue.id}"%>"> <%=link_to 'Take me to the issue', user_issue_path(current_user.id, issue.id) %> </p>
 							  <div class="bd">
-									<p>Matrícula que me ha abierto el issue: <%= issue.opener_id %></p>
-									<p>Fecha de creación: <%= issue.created_at %></p>
-									<p>Descripción del issue: <%= issue.description %></p>
+									<p><bold>Issue opener:</bold> <%= issue.opener_id %></p>
+									<p><bold>Creation date:</bold> <%= issue.created_at %></p>
+									<p><bold>Issue description:</bold> <%= issue.description %></p>
 								</div>
 							</article>
 						<% end %>
