@@ -16,10 +16,11 @@ class IssuesController < ApplicationController
 	end
 
 	def create
-    opener = User.find_by(plate: params[:receiver_id])
-    @plate = params[:receiver_id]
+    opener = User.find_by(plate: params[:issue][:receiver_id])
+    @plate = params[:issue][:receiver_id]
     if opener
       @issue = Issue.new(issue_params)
+      @issue.receiver_id = opener.id
       @plate_of_issue_opener = User.find_by(id: @issue.opener_id).plate
   		if @issue.save
         IssueMailer.issue_created(@issue, @plate_of_issue_opener).deliver
