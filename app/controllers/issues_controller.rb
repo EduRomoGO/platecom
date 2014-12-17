@@ -9,7 +9,13 @@ class IssuesController < ApplicationController
 			@issue = Issue.new
 			@received_issues = @user.received_issues.order(created_at: :desc)
 			@opened_issues = @user.opened_issues.order(created_at: :desc)
-		else
+		elsif( (user_signed_in?) and (current_user != user_url) )
+      #binding.pry
+      @user = user_url
+      @issue = Issue.new
+      @opened_issues = @user.opened_issues.order(created_at: :desc)
+      render 'public_issues'
+    else
 			@user = User.new
 		end
 
