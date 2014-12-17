@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   
   devise_for :users, :controllers => { :registrations => "users/registrations"}
   # The priority is based upon order of creation: first created -> highest priority.
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
   get '/', to: redirect('/users/1/issues')
 
   resources :users do
+    get 'search', on: :collection
     resources :issues
   end
 

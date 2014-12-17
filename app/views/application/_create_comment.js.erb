@@ -1,7 +1,9 @@
 $('.comments').append(' \
   <article class="comment"> \
+    <p>Fecha de creación: <%= resource.created_at %></p> \
 		<p>Body del comment: <%= resource.body %></p> \
 	</article> \
 ');
 
 $('.no_comments').hide();
+$('#comment_body').val('');
