@@ -13,7 +13,7 @@
 
 .container {
   background-image: url(/assets/bg.png);
-  min-height: 550px;
+  min-height: 530px;
 }
 
 a {
@@ -28,6 +28,7 @@ a::hover{
 body{
   font-family: 'helvetica', sans-serif;
   height: 100%;
+  min-width: 375px;
 }
 
 // header
@@ -39,14 +40,38 @@ header, footer {
     display: block;
     float: right;
     margin-right: 10px;
-    margin-top: 8px;
+    margin-top: 18px;
     margin-bottom: 2px;
   }
   a {
-    margin-top: 14px;
+    margin-top: 23px;
   }
-  height: 50px;
+  height: 70px;
 }
+
+
+// login
+
+.login {
+  margin:12px 10px 0 0;
+  float: right;
+  zoom: 0.9;
+  color: white;
+  .field {
+    display: inline-block;
+  }
+  .actions {
+    margin-top: 10px;
+  }
+  .actions div{
+    display: block;
+    float: right;
+  }
+  .button {
+    margin-left: 10px;
+  }
+}
+
 
 
 // plate

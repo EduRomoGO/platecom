@@ -6,7 +6,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   #root 'issues#index'
-  get '/', to: redirect('/users/1/issues')
+  #get '/', to: redirect('/users/1/issues')
+  get '/' => 'home#index'
 
   resources :users do
     get 'search', on: :collection

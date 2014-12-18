@@ -23,7 +23,7 @@
         </div>
 
         
-          <p><%= current_user.plate %></p>
+          <p><%= current_user.plate.to_s.upcase.insert(4, ' ')  %></p>
         
 
         <div>
@@ -32,6 +32,10 @@
         </div>
         
       </div>
+    <% else %>
+      <section class="login">
+        <%= render partial: "new_session", locals: {resource: @user} %>
+      </section>
     <% end %>
   </header>
 
