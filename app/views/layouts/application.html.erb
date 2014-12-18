@@ -7,9 +7,46 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body class="container">
 
-<%= yield %>
 
+<body>
+  <header>
+    <% if user_signed_in? %>
+      <%= link_to 'Sign Out', destroy_user_session_path, method: :delete,
+        data: { confirm: 'Are you sure?' } %>
+
+      <div class="plate">
+        
+        <div>
+          <div class="dot left top"></div>
+          <div class="dot right top"></div>
+        </div>
+
+        
+          <p><%= current_user.plate %></p>
+        
+
+        <div>
+          <div class="dot left bottom"></div>
+          <div class="dot right bottom"></div>
+        </div>
+        
+      </div>
+    <% end %>
+  </header>
+
+<div class="container">
+  <% if user_signed_in? %>
+    <%= render "search_users_by_plate" %>
+  <% end %>
+  <%= yield %>
+</div>
+  
+
+
+  <footer>
+    platecom
+  </footer>
 </body>
+
 </html>

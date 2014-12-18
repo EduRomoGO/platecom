@@ -1,30 +1,8 @@
 
 <% if not_empty_user?(@user) %>
 
-	<header>
-		<%= link_to 'Sign Out', destroy_user_session_path, method: :delete,
-			data: { confirm: 'Are you sure?' } %>
-
-			<div class="plate">
-			  
-			  <div>
-			    <div class="dot left top"></div>
-			    <div class="dot right top"></div>
-			  </div>
-			  
-				<p><%= current_user.plate %></p>
-			  
-			  <div>
-			    <div class="dot left bottom"></div>
-			    <div class="dot right bottom"></div>
-			  </div>
-			  
-			</div>
-
-	</header>
-
 	<section class="home_with_user col_11">
-<%= render "search_users_by_plate" %>
+
 		<section class="new_issue_form col_9">
 			<h1 class="new_issue_form_title">Create new issue</h1>
 			<div class="form col_6">
@@ -36,7 +14,7 @@
 					<br>
 					<%= f.label :description, 'Description: ' %>
 					<br>
-					<%= f.text_area :description, class: "textarea", size: "30x5", placeholder: " Park issue description" %>
+					<%= f.text_area :description, class: "textarea", size: "30x5", placeholder: "Park issue description" %>
 					<br>
 					<%= f.hidden_field :opener_id, value: @user.id %>
 
@@ -91,10 +69,6 @@
 		</div>
 
 	</section>
-
-	<footer>
-		platecom
-	</footer>
 
 <% else %>
 
