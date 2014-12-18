@@ -62,7 +62,8 @@ class IssuesController < ApplicationController
   		@comment = Comment.new
     else
       @user = User.new
-      render 'this_issue_is_not_related_to_you.html'
+      @related_to_user = false
+      render 'this_issue_is_not_related_to_you'
     end
 	end
 

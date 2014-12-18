@@ -66,7 +66,7 @@ describe "Issues comments page", :type => :feature do
     visit "/users/#{u.id}/issues"
     sign_in_user_u
     visit "/users/#{u.id}/issues/#{i.id}"
-    click_link('Ir a Issues')
+    click_link('My Issues')
     expect(page.should have_css('form.new_session')).to be(true)
   end
  
