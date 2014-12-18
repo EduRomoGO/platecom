@@ -4,7 +4,7 @@
 @import "reset";
 @import "variables";
 @import "mixins";
-@import "media_query_+480px";
+@import "media_queries";
 
 // Placeholder centered
 %centered {
@@ -14,6 +14,15 @@
 .container {
   background-image: url(/assets/bg.png);
   min-height: 550px;
+}
+
+a {
+  color: darken($issues_lists_color, 50%);
+  text-decoration: none;
+}
+
+a::hover{
+  color: darken($issues_lists_color, 15%);
 }
 
 body{
@@ -151,8 +160,6 @@ bold {
   @extend %centered;
   overflow: hidden;
   padding-top: 5px;
-  margin: 7px;
-  margin: 0 auto;
 }
 
 .textarea {

@@ -3,7 +3,7 @@ $('.opened_issues_wrapper').prepend(' \
   <p> <%=link_to "Take me to the issue", user_issue_path(current_user.id, resource.id) %> </p> \
   <div class="bd"> \
 		<p><bold>Issue receiver:</bold> <%= resource.receiver.plate %></p> \
-		<p><bold>Creation date:</bold> <%= resource.created_at %></p> \
+		<p><bold>Creation date:</bold> <%= resource.created_at.to_s[0..-5] %></p> \
 		<p><bold>Issue description:</bold> <%= resource.description %></p> \
 	</div> \
 </article> \

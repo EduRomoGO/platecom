@@ -35,7 +35,7 @@
 								<p class="link<%="#{issue.id}"%>"> <%=link_to 'Take me to the issue', user_issue_path(current_user.id, issue.id) %> </p>
 							  <div class="bd">
 									<p><bold>Issue receiver:</bold> <%= issue.receiver.plate %></p>
-									<p><bold>Creation date:</bold> <%= issue.created_at %></p>
+									<p><bold>Creation date:</bold> <%= issue.created_at.to_s[0..-5] %></p>
 									<p><bold>Issue description:</bold> <%= truncate(issue.description , length: 10)%></p>
 								</div>
 							</article>
@@ -55,7 +55,7 @@
 								<p class="link<%="#{issue.id}"%>"> <%=link_to 'Take me to the issue', user_issue_path(current_user.id, issue.id) %> </p>
 							  <div class="bd">
 									<p><bold>Issue opener:</bold> <%= issue.opener.plate %></p>
-									<p><bold>Creation date:</bold> <%= issue.created_at %></p>
+									<p><bold>Creation date:</bold> <%= issue.created_at.to_s[0..-5] %></p>
 									<p><bold>Issue description:</bold> <%= issue.description %></p>
 								</div>
 							</article>
@@ -71,7 +71,15 @@
 	</section>
 
 <% else %>
-
+	<section class="product_description">
+		<p>Solve your parking issues in some simple steps</p>
+		<ul>
+			<li>Sign up</li>
+			<li>Create an issue with your parking problem</li>
+			<li>Chat with the other driver involved to solve the</li>
+			<li>Done!</li>
+		</ul>
+	</section>
 	<section class="signup">
 		<%= render partial: "new_user", locals: {resource: @user} %>
 	</section>

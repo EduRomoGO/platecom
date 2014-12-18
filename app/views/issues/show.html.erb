@@ -1,7 +1,7 @@
 <article class="issue">
   <div class="bd">
 		<p>Issue receiver: <%= @issue.receiver.plate %></p>
-		<p>Creation date: <%= @issue.created_at %></p>
+		<p>Creation date: <%= @issue.created_at.to_s[0..-5] %></p>
 		<p>Descripción del issue: <%= @issue.description %></p>
 	</div>
 </article>
@@ -10,7 +10,7 @@
 <% if @comments.count > 0 %>
   <% @comments.each do |comment| %>
   	<article class="comment">
-      <p>Fecha de creación: <%= comment.created_at %></p>
+      <p>Fecha de creación: <%= comment.created_at.to_s[0..-5] %></p>
   		<p>Body del comment: <%= comment.body %></p>
   	</article>
   <% end %>
