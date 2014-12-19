@@ -1,4 +1,7 @@
 <%= form_tag search_users_path, method: :get, class: 'search_plates' do %>
   <%= search_field_tag :plate_target, params[:plate_target], placeholder: "Search plates", size: 10 %>
   <%= submit_tag "Search", class: "search_plates_button" %>
+  <% if flash[:error] %>
+   <div> <%= flash[:error] %> </div>
+  <% end %>
 <% end %>

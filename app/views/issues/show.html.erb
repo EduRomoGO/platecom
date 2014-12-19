@@ -1,35 +1,51 @@
-<article class="issue">
-  <div class="bd">
-		<p>Issue receiver: <%= @issue.receiver.plate %></p>
-		<p>Creation date: <%= @issue.created_at.to_s[0..-5] %></p>
-		<p>Descripción del issue: <%= @issue.description %></p>
-	</div>
-</article>
 
-<p class="comments">Comments related to the issue:</p>
-<% if @comments.count > 0 %>
-  <% @comments.each do |comment| %>
-  	<article class="comment">
-      <p>Fecha de creación: <%= comment.created_at.to_s[0..-5] %></p>
-  		<p>Body del comment: <%= comment.body %></p>
-  	</article>
-  <% end %>
-<% else %>
-  <p class="no_comments">The issue has not commentes yet</p>
-<% end %>
+<div class="comments_page_wrapper col_10">
 
-<%= form_for [@comment], remote: true, format: :js, :html => {class: "new_comment"} do |f| %>
-<section class="new_comment">
-	<p>Post a comment: </p>
-		<%= f.label :body, 'Body: ' %>
-		<%= f.text_field :body, placeholder: " Comment body" %>
-		<br>
-		<%= f.hidden_field :issue_id, value: @issue.id %>
-		<br>
-    <%= f.hidden_field :user_id, value: current_user.id %>
-    <br>
+  <div class="issue_and_comments col_6">
+    
+    <section class="issue_shown col_4">
+      <h1 class="issue_shown_title">Issue</h1>
+      <div class="issue_shown_wrapper">
+        <article class="issue">
+          <div class="bd">
+        		<p>Issue receiver: <%= @issue.receiver.plate %></p>
+        		<p>Creation date: <%= @issue.created_at.to_s[0..-5] %></p>
+        		<p>Issue description: <%= @issue.description %></p>
+        	</div>
+        </article>
+      </div>
+    </section>
 
-		<%= f.submit 'Save' , :id => 'new_comment' %>
-</section>
-<% end %>
+    <section class="comments col_4">
+      <h1 class="comments_title">Comments</h1>
+      <div class="comments_wrapper">
+        <% if @comments.count > 0 %>
+          <% @comments.each do |comment| %>
+          	<article class="comment each_comment">
+              <p><bold>Creation date:</bold> <%= comment.created_at.to_s[0..-5] %></p>
+          		<p><bold>Comment´s body:</bold> <%= comment.body %></p>
+          	</article>
+          <% end %>
+        <% else %>
+          <p class="no_comments">The issue has not comments yet</p>
+        <% end %>
+      </div>
+    </section>
 
+  </div>
+
+  <section class="new_comment_form col_3">
+    <h1 class="new_comment_form_title">Post a comment</h1>
+    <div class="form_wrapper">
+      <%= form_for [@comment], remote: true, format: :js, :html => {class: "new_comment"} do |f| %>
+      		<%= f.label :body, 'Body: ' %>
+      		<%= f.text_field :body, placeholder: " Comment body" %>
+      		<%= f.hidden_field :issue_id, value: @issue.id %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+
+      		<%= f.submit 'Save' , :id => 'new_comment', class: 'new_comment_button' %>
+      <% end %>
+    </div>
+  </section>
+
+</div>

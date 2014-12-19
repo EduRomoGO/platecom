@@ -15,11 +15,14 @@
 
     <% if current_user.id != params[:user_id] %>
       <p> <%=link_to 'My Issues', user_issues_path(current_user.id) %> </p>
-
     <% end %>
 
       <%= link_to 'Sign Out', destroy_user_session_path, method: :delete,
         data: { confirm: 'Are you sure?' } %>
+
+<div class="app_name">
+  Platecomunicator
+</div>
 
       <div class="plate">
         
@@ -59,7 +62,6 @@
 
 
   <footer>
-    platecom
   </footer>
 </body>
 

@@ -1,5 +1,5 @@
 $('.opened_issues_wrapper').prepend(' \
-<article class="media status attribution"> \
+<article class="media status attribution each_issue"> \
   <p> <%=link_to "Take me to the issue", user_issue_path(current_user.id, resource.id) %> </p> \
   <div class="bd"> \
 		<p><bold>Issue receiver:</bold> <%= resource.receiver.plate %></p> \

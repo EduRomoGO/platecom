@@ -1,7 +1,7 @@
 $('.comments').append(' \
-  <article class="comment"> \
-    <p>Fecha de creación: <%= resource.created_at.to_s[0..-5] %></p> \
-		<p>Body del comment: <%= resource.body %></p> \
+  <article class="comment each_comment"> \
+    <p><bold>Creation date:</bold> <%= resource.created_at.to_s[0..-5] %></p> \
+		<p><bold>Comment´s body:</bold> <%= resource.body %></p> \
 	</article> \
 ');
 

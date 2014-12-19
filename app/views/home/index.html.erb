@@ -1,12 +1,16 @@
-<section class="product_description">
-  <p>Solve your parking issues in some simple steps</p>
-  <ul>
-    <li>Sign up</li>
-    <li>Create an issue with your parking problem</li>
-    <li>Chat with the other driver involved to solve the</li>
-    <li>Done!</li>
-  </ul>
-</section>
-<section class="signup">
-  <%= render partial: "new_user", locals: {resource: @user} %>
-</section>
+<div class="home_container col_7">
+
+  <section class="product_description">
+    <h1>Solve your parking issues in some simple steps</h1>
+<div>    <ul>
+      <li>Sign up</li>
+      <li>Create an issue with your parking problem</li>
+      <li>Chat with the other driver involved to solve the issue</li>
+      <li>Done!</li>
+    </ul></div>
+  </section>
+  <section class="signup">
+    <%= render partial: "new_user", locals: {resource: @user} %>
+  </section>
+
+</div>

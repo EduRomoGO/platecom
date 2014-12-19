@@ -93,11 +93,11 @@ describe "User issues page", :type => :feature do
   end
 
   describe "has a form to create a new issue", :type => :feature do
-	  it "that has a form tag" do
-
+	 
+    it "that has a form tag" do
 	    visit "/users/#{u.id}/issues"
   		sign_in_user_u
-	    expect(all('form').count).to be(1)
+	    expect(all('form.new_issue').count).to be(1)
 	  end
 
 	  it "that has an input for the user plate" do
@@ -126,8 +126,8 @@ describe "User issues page", :type => :feature do
 
 	    visit "/users/#{u.id}/issues"
   		sign_in_user_u	    
-	    expect(all('input[name="commit"]').count).to be(1)
-	    expect(find('input[name="commit"]').value).to eq("Save")
+	    expect(all('input.new_issue_button').count).to be(1)
+	    expect(find('input.new_issue_button').value).to eq("Save")
 	  end
 
 	  it "that has an input hidden which holds the issue opener id value" do
@@ -138,29 +138,5 @@ describe "User issues page", :type => :feature do
 	    expect(find('input#issue_opener_id').value).to eq("#{u.id}")
 	  end
 	end
-
-
-  describe "when no user is signed in", :type => :feature do
-	  it "shows the devise registration form for new users with all of the fields empty" do
-	    visit "/users/#{u.id}/issues"
-	    expect(all('form.new_user').count).to be(1)
-    	within("section.signup") do
-	    	expect(find('input#user_email').text).to eq('')
-	    	expect(find('input#user_plate').text).to eq('')
-	    	expect(find('input#user_password').text).to eq('')
-	    	expect(find('input#user_password_confirmation').text).to eq('')	      	
-    	end
-	  end
-
-	  it "shows the devise log in form with all of the fields empty" do
-	    visit "/users/#{u.id}/issues"
-    	expect(find("section.login").all('form.new_session').count).to be(1)
-    	within("section.login") do
-	    	expect(find('input#user_plate').text).to eq('')
-	    	expect(find('input#user_password').text).to eq('')
-    	end
-	  end
-	end
-
 
 end

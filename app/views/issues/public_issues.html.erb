@@ -8,7 +8,7 @@
         <div class="opened_issues_wrapper">
           <% if @opened_issues.count != 0 %>
             <% @opened_issues.each do |issue| %>
-              <article class="media status attribution">
+              <article class="media status attribution each_issue">
                 <p class="link<%="#{issue.id}"%>"> <%=link_to 'Take me to the issue', user_issue_path(current_user.id, issue.id) %> </p>
                 <div class="bd">
                   <p><bold>Issue receiver:</bold> <%= issue.receiver.plate %></p>

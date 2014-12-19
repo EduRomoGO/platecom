@@ -8,7 +8,7 @@
 
 				<%= f.label :receiver_id, 'Plate: ' %>
 				<br>
-				<%= f.text_field :receiver_id, size: 10, placeholder: ' "1234AAA"' %>
+				<%= f.text_field :receiver_id, size: 10, placeholder: 'Ex: 1234AAA' %>
 				<br>
 				<%= f.label :description, 'Description: ' %>
 				<br>
@@ -29,7 +29,7 @@
 			<div class="opened_issues_wrapper">
 				<% if @opened_issues.count != 0 %>
 					<% @opened_issues.each do |issue| %>
-						<article class="media status attribution">
+						<article class="media status attribution each_issue">
 							<p class="link<%="#{issue.id}"%>"> <%=link_to 'Take me to the issue', user_issue_path(current_user.id, issue.id) %> </p>
 						  <div class="bd">
 								<p><bold>Issue receiver:</bold> <%= issue.receiver.plate %></p>
@@ -49,7 +49,7 @@
 			<div>
 				<% if @received_issues.count != 0 %>
 					<% @received_issues.each do |issue| %>
-						<article class="media status attribution">
+						<article class="media status attribution each_issue">
 							<p class="link<%="#{issue.id}"%>"> <%=link_to 'Take me to the issue', user_issue_path(current_user.id, issue.id) %> </p>
 						  <div class="bd">
 								<p><bold>Issue opener:</bold> <%= issue.opener.plate %></p>
