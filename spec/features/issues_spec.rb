@@ -3,23 +3,34 @@ require_relative '../rails_helper'
 describe "User issues page", :type => :feature do
 
 	let(:u) {User.create(:email => 'a@a.a',
-    					:password => '12345678',
+    					:password => '11111111',
     					:plate => '1234AAA')}
+
+  let(:user_aux1) {User.create(:email => 'b@b.b',
+                       :password => '11111111',
+                       :plate => '1234BBB')}
+  let(:user_aux2) {User.create(:email => 'c@c.c',
+                       :password => '11111111',
+                       :plate => '1234CCC')}
+  let(:user_aux3) {User.create(:email => 'd@d.d',
+                       :password => '11111111',
+                       :plate => '4444DDD')}
+
 
  	let(:create_test_issues_for_opener) {Issue.create(:opener_id => u.id,
 																							 		:description => 'park issue',
-																							 		:receiver_id => 2)
+																							 		:receiver_id => user_aux1.id)
 																	   Issue.create(:opener_id => u.id,
 																							 		:description => 'park issue new',
-																							 		:receiver_id => 3)}
+																							 		:receiver_id => user_aux2.id)}
 
- 	let(:create_test_issues_for_receiver) {Issue.create(:opener_id => 1,
+ 	let(:create_test_issues_for_receiver) {Issue.create(:opener_id => user_aux1.id,
 																										 		:description => 'park issue',
 																										 		:receiver_id => u.id)
-																			    Issue.create(	:opener_id => 2,
+																			    Issue.create(	:opener_id => user_aux2.id,
 																										 		:description => 'park issue new',
 																										 		:receiver_id => u.id)
-																			    Issue.create(	:opener_id => 1,
+																			    Issue.create(	:opener_id => user_aux3.id,
 																										 		:description => 'park issue newer',
 																										 		:receiver_id => u.id)}
 
@@ -70,7 +81,7 @@ describe "User issues page", :type => :feature do
     visit "/users/#{u.id}/issues"
     sign_in_user_u
     within("p.link#{u.opened_issues.first.id}") do
-      click_link('Llevame al issue')
+      click_link('Take me to the issue')
     end  
     expect(page.should have_css('form.new_comment')).to be(true)
   end
@@ -80,7 +91,7 @@ describe "User issues page", :type => :feature do
     visit "/users/#{u.id}/issues"
     sign_in_user_u
     within("p.link#{u.received_issues.first.id}") do
-      click_link('Llevame al issue')
+      click_link('Take me to the issue')
     end  
     expect(page.should have_css('form.new_comment')).to be(true)  
   end
@@ -89,7 +100,7 @@ describe "User issues page", :type => :feature do
     visit "/users/#{u.id}/issues"
     sign_in_user_u
 
-    expect(all('Llevame al issue').count).to be(0) 
+    expect(all('Take me to the issue').count).to be(0) 
   end
 
   describe "has a form to create a new issue", :type => :feature do

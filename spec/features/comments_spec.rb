@@ -47,7 +47,7 @@ describe "Issues comments page", :type => :feature do
     visit "/users/#{u.id}/issues"
     sign_in_user_u
     visit "/users/#{u.id}/issues/#{i.id}"
-    expect(find('.no_comments').text).to eq('El issue no tiene comentarios')  
+    expect(find('.no_comments').text).to eq('The issue has not comments yet')  
   end
 
   it "shows a form to create comments for the issue" do
@@ -55,7 +55,7 @@ describe "Issues comments page", :type => :feature do
     sign_in_user_u
     visit "/users/#{u.id}/issues/#{i.id}"
     num_articles = all('article.comment').count
-		within("section.new_comment") do
+		within("section.new_comment_form") do
 			fill_in('comment_body', :with => "comment body")
 			click_button('new_comment')
 	   end
