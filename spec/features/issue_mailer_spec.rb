@@ -13,6 +13,6 @@ describe "Issues mailer" do
   let(:issue_mailer) {IssueMailer.issue_created(issue, user.plate)}
  
   xit "sends an email" do
-    expect { issue_mailer }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    expect { issue_mailer.deliver }.to change { ActionMailer::Base.deliveries.count }.by(1)
   end
 end

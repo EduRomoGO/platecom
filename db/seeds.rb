@@ -7,16 +7,19 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-User.create(:email => 'retiraelcoche@hotmail.com',
+blocked = User.create(:email => 'retiraelcoche@hotmail.com',
             :password => '11111111',
             :plate => '3231HJZ')
-
-User.create(:email => 'ahoramismoloquito@hotmail.com',
+blocker = User.create(:email => 'ahoramismoloquito@hotmail.com',
             :password => '11111111',
             :plate => '6521DYH')
-  let(:user_aux2) {User.create(:email => 'c@c.c',
-                       :password => '11111111',
-                       :plate => '1234AAA')}
-  let(:user_aux3) {User.create(:email => 'd@d.d',
-                       :password => '11111111',
-                       :plate => '4444DDD')}
+User.create(:email => 'c@c.c',
+            :password => '11111111',
+            :plate => '1234AAA')
+User.create(:email => 'd@d.d',
+            :password => '11111111',
+            :plate => '4444DDD')
+
+ i = Issue.create(:opener_id => blocked.id,
+            :receiver_id => blocker.id,
+            :description => 'Please, move the car')

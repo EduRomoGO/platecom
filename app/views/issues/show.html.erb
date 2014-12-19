@@ -8,7 +8,7 @@
       <div class="issue_shown_wrapper">
         <article class="issue">
           <div class="bd">
-        		<p>Issue receiver: <%= @issue.receiver.plate %></p>
+        		<p>Issue receiver: <%= @issue.receiver.plate.to_s.upcase.insert(4, ' ')%></p>
         		<p>Creation date: <%= @issue.created_at.to_s[0..-5] %></p>
         		<p>Issue description: <%= @issue.description %></p>
         	</div>

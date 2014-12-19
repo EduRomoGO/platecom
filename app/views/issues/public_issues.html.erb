@@ -11,14 +11,14 @@
               <article class="media status attribution each_issue">
                 <p class="link<%="#{issue.id}"%>"> <%=link_to 'Take me to the issue', user_issue_path(current_user.id, issue.id) %> </p>
                 <div class="bd">
-                  <p><bold>Issue receiver:</bold> <%= issue.receiver.plate %></p>
+                  <p><bold>Issue receiver:</bold> <%= issue.receiver.plate.to_s.upcase.insert(4, ' ')%></p>
                   <p><bold>Creation date:</bold> <%= issue.created_at.to_s[0..-5] %></p>
                   <p><bold>Issue description:</bold> <%= truncate(issue.description , length: 10)%></p>
                 </div>
               </article>
             <% end %>
           <% else %>
-            <p class="empty_opened_issues_message"> <%= @user.plate %> has not opened any issue yet </p>
+            <p class="empty_opened_issues_message"> <%= @user.plate.to_s.upcase.insert(4, ' ')%> has not opened any issues yet </p>
           <% end %>
         </div>
       </section>
