@@ -5,19 +5,16 @@ class IssuesController < ApplicationController
     if current_user
   		user_url = User.find params[:user_id]
 
-  		if( (user_signed_in?) and (current_user == user_url) )
+  		if current_user == user_url
   			@user = current_user
   			@issue = Issue.new
   			@received_issues = @user.received_issues.order(created_at: :desc)
   			@opened_issues = @user.opened_issues.order(created_at: :desc)
-  		elsif( (user_signed_in?) and (current_user != user_url) )
-        #binding.pry
+  		else
         @user = user_url
         @issue = Issue.new
         @opened_issues = @user.opened_issues.order(created_at: :desc)
         render 'public_issues'
-      else
-  			@user = User.new
   		end
     else
       redirect_to '/'

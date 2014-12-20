@@ -40,7 +40,7 @@ gem 'spring',        group: :development
 
 gem 'rake', '>= 10.4'
 
-gem 'rspec-rails', group: [:test]
+gem 'rspec-rails', group: [:test, :development]
 
 gem 'capybara'
 

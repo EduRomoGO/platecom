@@ -20,6 +20,6 @@ User.create(:email => 'd@d.d',
             :password => '11111111',
             :plate => '4444DDD')
 
- i = Issue.create(:opener_id => blocked.id,
-            :receiver_id => blocker.id,
+ i = Issue.create(:opener_id => "blocked.id",
+            :receiver_id => "blocker.id",
             :description => 'Please, move the car')
