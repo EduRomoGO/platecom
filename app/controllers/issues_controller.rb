@@ -1,27 +1,22 @@
 class IssuesController < ApplicationController
 
+  before_action :authenticate_user!
+
 	def index
 
     if current_user
-  		user_url = User.find params[:user_id]
-
-  		if current_user == user_url
-  			@user = current_user
-  			@issue = Issue.new
-  			@received_issues = @user.received_issues.order(created_at: :desc)
-  			@opened_issues = @user.opened_issues.order(created_at: :desc)
-  		else
-        @user = user_url
-        @issue = Issue.new
-        @opened_issues = @user.opened_issues.order(created_at: :desc)
+      if current_user_visiting_his_issues?
+        send_current_user_values_to_index
+      else
+        send_user_from_url_values_to_public_issues
         render 'public_issues'
-  		end
+      end
     else
       redirect_to '/'
     end
 
-
 	end
+
 
 	def create
     opener = User.find_by(plate: params[:issue][:receiver_id])
@@ -53,27 +48,45 @@ class IssuesController < ApplicationController
 	end
 
 	def show
-    if(current_user_matches_url_user? and url_issue_is_related_to_current_user?)
-  		@issue = Issue.find (params[:id])
-  		@comments = @issue.comments.order(created_at: :desc)
-  		@comment = Comment.new
+    if current_user
+      if current_user_visiting_his_issues? and url_issue_is_related_to_current_user?
+    		@issue = Issue.find (params[:id])
+    		@comments = @issue.comments.order(created_at: :desc)
+    		@comment = Comment.new
+      else
+        @user = User.new
+        @related_to_user = false
+        render 'this_issue_is_not_related_to_you'
+      end
     else
-      @user = User.new
-      @related_to_user = false
-      render 'this_issue_is_not_related_to_you'
+      redirect_to '/'
     end
 	end
 
 
   private
 
-  def issue_params
-    params.require(:issue).permit(:opener_id, :description)
+  def current_user_visiting_his_issues?
+    user_from_url = User.find params[:user_id]
+    current_user_visiting_his_issues = current_user == user_from_url
   end
 
-  def current_user_matches_url_user?
-    user_url = User.find params[:user_id]
-    current_user_comes_in_url = ((current_user == user_url) and user_signed_in?)
+  def send_current_user_values_to_index
+      @issue = Issue.new
+      @user = current_user
+      @received_issues = @user.received_issues.order(created_at: :desc)
+      @opened_issues = @user.opened_issues.order(created_at: :desc)
+  end
+
+  def send_user_from_url_values_to_public_issues
+      user_from_url = User.find params[:user_id]
+      @issue = Issue.new  
+      @user = user_from_url
+      @opened_issues = @user.opened_issues.order(created_at: :desc)
+  end
+
+  def issue_params
+    params.require(:issue).permit(:opener_id, :description)
   end
 
   def url_issue_is_related_to_current_user?
